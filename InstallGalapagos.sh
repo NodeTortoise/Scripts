@@ -18,6 +18,7 @@ apt-get install npm
 echo "3. Instalando GIT"
 if dpkg --get-selections | grep -q "^$GIT_PKG[[:space:]]*install$" >/dev/null; then
 
+
 #apt-get install git
 #apt-get install unzip
 #wget http://downloads.typesafe.com/typesafe-activator/1.3.5/typesafe-activator-1.3.5-minimal.zip
