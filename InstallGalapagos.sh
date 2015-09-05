@@ -1,41 +1,84 @@
 #!/bin/bash
 
 # DEFINE VARIABLES
+NODE_PKG="node"
+NPM_PKG="npm"
 GIT_PKG="git"
+UNZIP_PKG="unzip"
+IMAGEMAGICK_PKG="imagemagick"
+OPENJDK_PKG="openjdk"
+ORACLEJDK_PKG="oracle-java8-installer"
 
-echo "Instalando Galapagos...."
+# FUNCION QUE VERIFICA SI UN PAQUETE ESTE INSTALADO
+isPackageInstalled() {
+    if dpkg --get-selections | grep -q "^$1[[:space:]]*install$" >/dev/null; 
+    then
+        echo "$1 previamente instalado" 
+        return 0 # 0 = true
+    else
+        return 1 # 1 = false
+    fi
+}
 
-#echo "1. Instalando "
-#echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
-#sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
-#sudo apt-get update
-#sudo apt-get install sbt
+# INICIA LOGICA
 
-echo "2. Instalando NodeJS...."
-apt-get install node
-apt-get install npm
+echo "******************************"
+echo "******  Inicia Proceso  ******"
+echo "******************************"
 
-echo "3. Instalando GIT"
-if dpkg --get-selections | grep -q "^$GIT_PKG[[:space:]]*install$" >/dev/null; then
+echo "1. Instalando SBT"
+echo "https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
+sudo apt-get update
+sudo apt-get install sbt
 
+echo "===> 2. Instalando NodeJS"
+if ! isPackageInstalled $NODE_PKG; then 
+    apt-get install $NODE_PKG
+fi
 
-#apt-get install git
-#apt-get install unzip
-#wget http://downloads.typesafe.com/typesafe-activator/1.3.5/typesafe-activator-1.3.5-minimal.zip
-#unzip typesafe-activator-1.3.5-minimal.zip
-#ln -s start ../activator-1.3.5-minimal/activator
+echo "===> 3. Instalando NodeJS Package Manager"
+if ! isPackageInstalled $NPM_PKG; then 
+    apt-get install $NPM_PKG
+fi
 
-#apt-get purge openjdk*
+echo "===> 4. Instalando GIT"
+if ! isPackageInstalled $GIT_PKG; then 
+    apt-get install $GIT_PKG
+fi
 
-#add-apt-repository ppa:webupd8team/java
-#apt-get update
-#apt-get install oracle-java8-installer
+echo "===> 5. Instalando UnZip"
+if ! isPackageInstalled $UNZIP_PKG; then 
+    apt-get install $UNZIP_PKG
+fi
 
-#apt-get install imagemagick
+echo "===> 6. Instalando ImageMagick"
+if ! isPackageInstalled $IMAGEMAGICK_PKG; then 
+    apt-get install $IMAGEMAGICK_PKG
+fi
 
+echo "===> 7. Desinstalando OpenJDK"
+if isPackageInstalled $OPENJDK_PKG; then 
+    apt-get purge $OPENJDK_PKG*
+fi
 
-# SET VARIABLES
-#JS_FILES=(/home/ubuntu/TFIA/NodeJS/model/js.custom/_constants.js)
-#IP_ADDRESS="$(wget -qO- http://ipecho.net/plain ; echo)"
+echo "===> 8. Instalando Oracle Java 8 JDK"
+if ! isPackageInstalled $ORACLEJDK_PKG; then 
+    add-apt-repository ppa:webupd8team/java
+    apt-get update
+    apt-get install $ORACLEJDK_PKG
+fi
 
-#echo "Done!"
+echo "===> 9. Instalando Play Framework"
+wget http://downloads.typesafe.com/typesafe-activator/1.3.5/typesafe-activator-1.3.5-minimal.zip
+unzip typesafe-activator-1.3.5-minimal.zip
+rm typesafe-activator-1.3.5-minimal.zip
+
+echo "===> 10. Obteniendo repositorio de Galapagos en GitHub"
+git clone https://github.com/NetLogo/Galapagos.git
+cd Galapagos
+ln -s ../activator-1.3.5-minimal/activator start
+
+echo "******************************"
+echo "*****  Proceso Completo  *****"
+echo "******************************"
