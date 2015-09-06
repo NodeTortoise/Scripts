@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # DEFINE VARIABLES
+SBT_PKG="sbt"
 NODE_PKG="node"
 NPM_PKG="npm"
 GIT_PKG="git"
@@ -27,10 +28,12 @@ echo "******  Inicia Proceso  ******"
 echo "******************************"
 
 echo "1. Instalando SBT"
-echo "https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
-sudo apt-get update
-sudo apt-get install sbt
+if ! isPackageInstalled $SBT_PKG; then 
+    echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
+    apt-get update
+    apt-get install $SBT_PKG
+fi
 
 echo "===> 2. Instalando NodeJS"
 if ! isPackageInstalled $NODE_PKG; then 
