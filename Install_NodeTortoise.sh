@@ -46,14 +46,6 @@ git clone $NODETORTOISE_REPOSITORY
 cd NodeTortoise
 npm install
 
-echo "===> 6. Definiendo parametros de la aplicacion"
-export PORT=80
-export NODE_ENV=production
-echo export NODE_ENV=production >> ~/.bash_profile
-echo export PORT=80 >> ~/.bash_profile
-#echo forever start bin/www >> ~/.bash_profile
-
-
 echo "******************************"
 echo "*****  Proceso Completo  *****"
 echo "******************************"
