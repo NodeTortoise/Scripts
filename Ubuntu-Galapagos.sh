@@ -29,7 +29,7 @@ echo "******************************"
 
 echo "===> 1. Instalando NodeJS"
 if ! isPackageInstalled $NODE_PKG; then
-    apt-get install $NODE_PKG
+    #apt-get install $NODE_PKG
     apt-get install nodejs-legacy
 fi
 
