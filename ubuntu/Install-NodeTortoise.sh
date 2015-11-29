@@ -24,33 +24,35 @@ echo "******************************"
 echo "******  Inicia Proceso  ******"
 echo "******************************"
 
-echo "===> 1. Instalando NodeJS"
+echo "===> 1. Actualizando lista de paquetes"
+apt-get update
+
+echo "===> 2. Instalando NodeJS"
 if ! isPackageInstalled $NODE_PKG; then
     apt-get install $NODE_PKG
 fi
 
-echo "===> 2. Instalando NodeJS Package Manager"
+echo "===> 3. Instalando NodeJS Package Manager"
 if ! isPackageInstalled $NPM_PKG; then
     apt-get install $NPM_PKG
 fi
 
-echo "===> 3. Instalando GIT"
+echo "===> 4. Instalando GIT"
 if ! isPackageInstalled $GIT_PKG; then
     apt-get install $GIT_PKG
 fi
 
-echo "===> 4. Instalando NodeJS Forever"
+echo "===> 5. Instalando NodeJS Forever"
 npm install -g forever
 
-echo "===> 5. Obteniendo repositorio de NodeTortoise en GitHub"
+echo "===> 6. Obteniendo repositorio de NodeTortoise en GitHub"
 git clone $NODETORTOISE_REPOSITORY
 
-echo "===> 6. Instalando NodeTortoise"
+echo "===> 7. Instalando NodeTortoise"
 cd NodeTortoise
 npm install
-echo "var _ENVIRONMENT = ENVIRONMENT_DEVELOPMENT";
-echo "var _SERVER = '$IP_ADDRESS'";
-
+echo "var _ENVIRONMENT = ENVIRONMENT_DEVELOPMENT;";
+echo "var _SERVER = '$IP_ADDRESS';";
 
 echo "******************************"
 echo "*****  Proceso Completo  *****"
