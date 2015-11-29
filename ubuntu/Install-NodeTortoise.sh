@@ -5,6 +5,7 @@ NODE_PKG="nodejs-legacy"
 NPM_PKG="npm"
 GIT_PKG="git"
 NODETORTOISE_REPOSITORY="https://github.com/oscarmartinezm/NodeTortoise.git"
+IP_ADDRESS="$(wget -qO- http://ipecho.net/plain ; echo)"
 
 # FUNCION QUE VERIFICA SI UN PAQUETE ESTE INSTALADO
 isPackageInstalled() {
@@ -43,8 +44,13 @@ npm install -g forever
 
 echo "===> 5. Obteniendo repositorio de NodeTortoise en GitHub"
 git clone $NODETORTOISE_REPOSITORY
+
+echo "===> 6. Instalando NodeTortoise"
 cd NodeTortoise
 npm install
+echo "var _ENVIRONMENT = ENVIRONMENT_DEVELOPMENT";
+echo "var _SERVER = '$IP_ADDRESS'";
+
 
 echo "******************************"
 echo "*****  Proceso Completo  *****"

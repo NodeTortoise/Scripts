@@ -56,29 +56,24 @@ if ! isPackageInstalled $UNZIP_PKG; then
     apt-get install $UNZIP_PKG
 fi
 
-#echo "===> 6. Instalando ImageMagick"
-#if ! isPackageInstalled $IMAGEMAGICK_PKG; then
-#    apt-get install $IMAGEMAGICK_PKG
-#fi
-
-echo "===> 7. Desinstalando OpenJDK"
+echo "===> 6. Desinstalando OpenJDK"
 if isPackageInstalled $OPENJDK_PKG; then
     apt-get purge $OPENJDK_PKG*
 fi
 
-echo "===> 8. Instalando Oracle Java 8 JDK"
+echo "===> 7. Instalando Oracle Java 8 JDK"
 if ! isPackageInstalled $ORACLEJDK_PKG; then
     add-apt-repository ppa:webupd8team/java
     apt-get update
     apt-get install $ORACLEJDK_PKG
 fi
 
-echo "===> 9. Instalando Play Framework"
+echo "===> 8. Instalando Play Framework"
 wget http://downloads.typesafe.com/typesafe-activator/1.3.5/typesafe-activator-1.3.5-minimal.zip
 unzip typesafe-activator-1.3.5-minimal.zip
 rm typesafe-activator-1.3.5-minimal.zip
 
-echo "===> 10. Obteniendo repositorio de Galapagos en GitHub"
+echo "===> 9. Obteniendo repositorio de Galapagos en GitHub"
 git clone https://github.com/oscarmartinezm/Galapagos.git
 cd Galapagos
 ln -s ../activator-1.3.5-minimal/activator start
