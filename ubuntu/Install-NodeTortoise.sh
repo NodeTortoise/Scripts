@@ -1,10 +1,14 @@
 #!/bin/bash
 
+# CONFIGURATION
+INSTALL_LOCATION="/home/ubuntu"
+CONFIG_FILE_LOCATION="config/public/main.js"
+NODETORTOISE_REPOSITORY="https://github.com/oscarmartinezm/NodeTortoise.git"
+
 # DEFINE VARIABLES
 NODE_PKG="nodejs-legacy"
 NPM_PKG="npm"
 GIT_PKG="git"
-NODETORTOISE_REPOSITORY="https://github.com/oscarmartinezm/NodeTortoise.git"
 IP_ADDRESS="$(wget -qO- http://ipecho.net/plain ; echo)"
 
 # FUNCION QUE VERIFICA SI UN PAQUETE ESTE INSTALADO
@@ -46,13 +50,14 @@ echo "===> 5. Instalando NodeJS Forever"
 npm install -g forever
 
 echo "===> 6. Obteniendo repositorio de NodeTortoise en GitHub"
+cd $INSTALL_LOCATION
 git clone $NODETORTOISE_REPOSITORY
 
 echo "===> 7. Instalando NodeTortoise"
 cd NodeTortoise
 npm install
-echo "var _ENVIRONMENT = ENVIRONMENT_DEVELOPMENT;";
-echo "var _SERVER = '$IP_ADDRESS';";
+echo "var _ENVIRONMENT = ENVIRONMENT_DEVELOPMENT;" >> $CONFIG_FILE_LOCATION;
+echo "var _SERVER = '$IP_ADDRESS';" >> $CONFIG_FILE_LOCATION;
 
 echo "******************************"
 echo "*****  Proceso Completo  *****"
