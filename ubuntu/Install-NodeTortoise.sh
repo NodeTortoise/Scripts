@@ -33,20 +33,17 @@ apt-get update
 
 echo "===> 2. Instalando NodeJS"
 if ! isPackageInstalled $NODE_PKG; then
-    apt-get install $NODE_PKG
-	echo "y"
+    apt-get --yes --force-yes install $NODE_PKG
 fi
 
 echo "===> 3. Instalando NodeJS Package Manager"
 if ! isPackageInstalled $NPM_PKG; then
-    apt-get install $NPM_PKG
-	echo "y"
+    apt-get --yes --force-yes install $NPM_PKG
 fi
 
 echo "===> 4. Instalando GIT"
 if ! isPackageInstalled $GIT_PKG; then
-    apt-get install $GIT_PKG
-	echo "y"
+    apt-get --yes --force-yes install $GIT_PKG
 fi
 
 echo "===> 5. Instalando NodeJS Forever"
