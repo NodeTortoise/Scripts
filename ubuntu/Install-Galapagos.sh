@@ -2,7 +2,7 @@
 
 # DEFINE VARIABLES
 SBT_PKG="sbt"
-NODE_PKG="node"
+NODE_PKG="nodejs-legacy"
 NPM_PKG="npm"
 GIT_PKG="git"
 UNZIP_PKG="unzip"
@@ -27,62 +27,62 @@ echo "******************************"
 echo "******  Inicia Proceso  ******"
 echo "******************************"
 
+echo "===> 1. Actualizando lista de paquetes"
 apt-get update
 
-echo "===> 1. Instalando NodeJS"
+echo "===> 2. Instalando NodeJS"
 if ! isPackageInstalled $NODE_PKG; then
-    #apt-get install $NODE_PKG
-    apt-get install nodejs-legacy
-	echo | y
+    apt-get install $NODE_PKG
+    echo | y
 fi
 
-echo "===> 2. Instalando NodeJS Package Manager"
+echo "===> 3. Instalando NodeJS Package Manager"
 if ! isPackageInstalled $NPM_PKG; then
     apt-get install $NPM_PKG
-	echo | y
+    echo | y
 fi
 
-echo "===> 3. Instalando SBT"
+echo "===> 4. Instalando SBT"
 if ! isPackageInstalled $SBT_PKG; then
     echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
     apt-get update
     apt-get install $SBT_PKG
-	echo | y
+    echo | y
 fi
 
-echo "===> 4. Instalando GIT"
+echo "===> 5. Instalando GIT"
 if ! isPackageInstalled $GIT_PKG; then
     apt-get install $GIT_PKG
-	echo | y
+    echo | y
 fi
 
-echo "===> 5. Instalando UnZip"
+echo "===> 6. Instalando UnZip"
 if ! isPackageInstalled $UNZIP_PKG; then
     apt-get install $UNZIP_PKG
-	echo | y
+    echo | y
 fi
 
-echo "===> 6. Desinstalando OpenJDK"
+echo "===> 7. Desinstalando OpenJDK"
 if isPackageInstalled $OPENJDK_PKG; then
     apt-get purge $OPENJDK_PKG*
-	echo | y
+    echo | y
 fi
 
-echo "===> 7. Instalando Oracle Java 8 JDK"
+echo "===> 8. Instalando Oracle Java 8 JDK"
 if ! isPackageInstalled $ORACLEJDK_PKG; then
     add-apt-repository ppa:webupd8team/java
     apt-get update
     apt-get install $ORACLEJDK_PKG
-	echo | y
+    echo | y
 fi
 
-echo "===> 8. Instalando Play Framework"
+echo "===> 9. Instalando Play Framework"
 wget http://downloads.typesafe.com/typesafe-activator/1.3.5/typesafe-activator-1.3.5-minimal.zip
 unzip typesafe-activator-1.3.5-minimal.zip
 rm typesafe-activator-1.3.5-minimal.zip
 
-echo "===> 9. Obteniendo repositorio de Galapagos en GitHub"
+echo "===> 10. Obteniendo repositorio de Galapagos en GitHub"
 git clone https://github.com/oscarmartinezm/Galapagos.git
 cd Galapagos
 ln -s ../activator-1.3.5-minimal/activator play
