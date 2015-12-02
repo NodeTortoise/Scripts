@@ -56,7 +56,7 @@ git clone $NODETORTOISE_REPOSITORY
 echo "===> 7. Instalando NodeTortoise"
 cd NodeTortoise
 npm install
-echo "var _ENVIRONMENT = ENVIRONMENT_PRODUCTION;" >> $CONFIG_FILE_LOCATION;
+echo "var _ENVIRONMENT = CONSTANTS.ENVIRONMENT_PRODUCTION;" >> $CONFIG_FILE_LOCATION;
 echo "var _SERVER = '$IP_ADDRESS';" >> $CONFIG_FILE_LOCATION;
 
 echo "******************************"
